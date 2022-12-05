@@ -1,14 +1,17 @@
-import { Schema, Model } from "mongoose";
+import { Schema, model } from "mongoose";
 
 const orderSchema = new Schema(
   {
-    products: { type: String, required: true },
-    price: { type: Number, required: true },
-    orders: [{ type: String }],
+    products: [
+      {
+        productID: { type: Schema.Types.ObjectId, ref: "Product" },
+        quantidade: [{ type: Number, min: 0 }],
+      },
+    ],
   },
   { timestamps: true }
 );
 
-const ProductModel = model("Product", orderSchema);
+const OrderModel = model("Order", orderSchema);
 
-export default ProductModel;
+export default OrderModel;
